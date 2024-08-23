@@ -17,12 +17,12 @@ public class KeepAliveTest {
         long keepAliveInterval = 1000L;
         //创建一个aliveKeeper
         AliveKeeper aliveKeeper = KeepAliveService.createAliveKeeper(aliveKeeperServiceRepositorySet,
-                "1", currentTime, keepAliveInterval, new TestAliveKeeper());
+                "1", currentTime, new TestAliveKeeper());
 
         //时间过了500毫秒，检查是否存活
         currentTime += 500;
         boolean alive = KeepAliveService.isAlive(aliveKeeperServiceRepositorySet,
-                aliveKeeper.getId(), currentTime);
+                aliveKeeper.getId(), currentTime, keepAliveInterval);
         assertTrue(alive);
 
         //活跃了一次
@@ -32,13 +32,13 @@ public class KeepAliveTest {
         //时间过了500毫秒，检查是否存活
         currentTime += 500;
         alive = KeepAliveService.isAlive(aliveKeeperServiceRepositorySet,
-                aliveKeeper.getId(), currentTime);
+                aliveKeeper.getId(), currentTime, keepAliveInterval);
         assertTrue(alive);
 
         //时间过了500毫秒，检查是否存活
         currentTime += 500;
         alive = KeepAliveService.isAlive(aliveKeeperServiceRepositorySet,
-                aliveKeeper.getId(), currentTime);
+                aliveKeeper.getId(), currentTime, keepAliveInterval);
         assertFalse(alive);
 
         //删除aliveKeeper

@@ -6,22 +6,21 @@ import dml.keepalive.service.repositoryset.AliveKeeperServiceRepositorySet;
 
 public class KeepAliveService {
     public static AliveKeeper createAliveKeeper(AliveKeeperServiceRepositorySet repositorySet,
-                                                Object Id, long createTime, long keepAliveInterval, AliveKeeper newAliveKeeper) {
+                                                Object Id, long createTime, AliveKeeper newAliveKeeper) {
         AliveKeeperRepository<AliveKeeper, Object> aliveKeeperRepository = repositorySet.getAliveKeeperRepository();
 
         newAliveKeeper.setId(Id);
-        newAliveKeeper.setkeepAliveInterval(keepAliveInterval);
         newAliveKeeper.setLastKeepAliveTime(createTime);
         aliveKeeperRepository.put(newAliveKeeper);
         return newAliveKeeper;
     }
 
     public static boolean isAlive(AliveKeeperServiceRepositorySet repositorySet,
-                                  Object id, long currentTime) {
+                                  Object id, long currentTime, long keepAliveInterval) {
         AliveKeeperRepository<AliveKeeper, Object> aliveKeeperRepository = repositorySet.getAliveKeeperRepository();
 
         AliveKeeper aliveKeeper = aliveKeeperRepository.find(id);
-        boolean alive = aliveKeeper.isAlive(currentTime);
+        boolean alive = aliveKeeper.isAlive(currentTime, keepAliveInterval);
         return alive;
     }
 

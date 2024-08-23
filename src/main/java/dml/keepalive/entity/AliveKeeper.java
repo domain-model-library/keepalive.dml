@@ -5,9 +5,7 @@ public interface AliveKeeper {
 
     Object getId();
 
-    void setkeepAliveInterval(long keepAliveInterval);
-
     void setLastKeepAliveTime(long createTime);
 
-    boolean isAlive(long currentTime);
+    boolean isAlive(long currentTime, long keepAliveInterval);
 }

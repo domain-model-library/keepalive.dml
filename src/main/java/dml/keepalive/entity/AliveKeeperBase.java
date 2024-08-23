@@ -1,13 +1,7 @@
 package dml.keepalive.entity;
 
 public abstract class AliveKeeperBase implements AliveKeeper {
-    private long keepAliveInterval;
     private long lastKeepAliveTime;
-
-    @Override
-    public void setkeepAliveInterval(long keepAliveInterval) {
-        this.keepAliveInterval = keepAliveInterval;
-    }
 
     @Override
     public void setLastKeepAliveTime(long keepAliveTime) {
@@ -15,7 +9,7 @@ public abstract class AliveKeeperBase implements AliveKeeper {
     }
 
     @Override
-    public boolean isAlive(long currentTime) {
+    public boolean isAlive(long currentTime, long keepAliveInterval) {
         return currentTime - lastKeepAliveTime < keepAliveInterval;
     }
 }
