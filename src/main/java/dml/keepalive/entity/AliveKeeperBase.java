@@ -1,7 +1,7 @@
 package dml.keepalive.entity;
 
 public abstract class AliveKeeperBase implements AliveKeeper {
-    private long lastKeepAliveTime;
+    protected long lastKeepAliveTime;
 
     @Override
     public void setLastKeepAliveTime(long keepAliveTime) {
