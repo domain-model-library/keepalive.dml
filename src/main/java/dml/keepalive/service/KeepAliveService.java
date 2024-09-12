@@ -20,6 +20,9 @@ public class KeepAliveService {
         AliveKeeperRepository<AliveKeeper, Object> aliveKeeperRepository = repositorySet.getAliveKeeperRepository();
 
         AliveKeeper aliveKeeper = aliveKeeperRepository.find(id);
+        if (aliveKeeper == null) {
+            return false;
+        }
         boolean alive = aliveKeeper.isAlive(currentTime, keepAliveInterval);
         return alive;
     }
