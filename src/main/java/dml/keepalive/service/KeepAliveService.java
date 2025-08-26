@@ -39,6 +39,7 @@ public class KeepAliveService {
                                                     Object id, long currentTime, AliveKeeper newAliveKeeper) {
         AliveKeeperRepository<AliveKeeper, Object> aliveKeeperRepository = aliveKeeperServiceRepositorySet.getAliveKeeperRepository();
 
+        newAliveKeeper.setId(id);
         AliveKeeper aliveKeeper = aliveKeeperRepository.takeOrPutIfAbsent(id, newAliveKeeper);
         aliveKeeper.setId(id);
         aliveKeeper.setLastKeepAliveTime(currentTime);
