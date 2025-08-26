@@ -35,6 +35,15 @@ public class KeepAliveService {
         aliveKeeper.setLastKeepAliveTime(currentTime);
     }
 
+    public static void keepAliveAndCreateIfNotExist(AliveKeeperServiceRepositorySet aliveKeeperServiceRepositorySet,
+                                                    Object id, long currentTime, AliveKeeper newAliveKeeper) {
+        AliveKeeperRepository<AliveKeeper, Object> aliveKeeperRepository = aliveKeeperServiceRepositorySet.getAliveKeeperRepository();
+
+        AliveKeeper aliveKeeper = aliveKeeperRepository.takeOrPutIfAbsent(id, newAliveKeeper);
+        aliveKeeper.setId(id);
+        aliveKeeper.setLastKeepAliveTime(currentTime);
+    }
+
     public static AliveKeeper removeAliveKeeper(AliveKeeperServiceRepositorySet aliveKeeperServiceRepositorySet,
                                                 Object id) {
         AliveKeeperRepository<AliveKeeper, Object> aliveKeeperRepository = aliveKeeperServiceRepositorySet.getAliveKeeperRepository();
