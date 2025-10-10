@@ -16,6 +16,8 @@ public class KeepAliveTest {
         long currentTime = 0L;
         long keepAliveInterval = 1000L;
         //创建一个aliveKeeper
+        // 注意，具体项目中，应该是有专门的AliveKeeper实现类的，而不是用原有的业务类来充当AliveKeeper。
+        // 比如，用户会话保活，应该新建一个 UserSessionAliveKeeper ，而不是用 UserSession 来充当 AliveKeeper 。
         AliveKeeper aliveKeeper = KeepAliveService.createAliveKeeper(aliveKeeperServiceRepositorySet,
                 "1", currentTime, new TestAliveKeeper());
 
